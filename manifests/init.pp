@@ -49,6 +49,7 @@ class sonarqube (
   $web_java_opts    = undef,
   $search_java_opts = undef,
   $config           = undef,
+  $use_hiera        = false,
 ) inherits sonarqube::params {
   validate_absolute_path($download_dir)
   Exec {
@@ -207,6 +208,10 @@ class sonarqube (
     },
     artifactid => 'sonar-crowd-plugin',
     version    => '1.0',
+  }
+
+  if $use_hiera {
+    create_resources('sonarqube::plugin', hiera_hash('sonarqube::plugin', {}))
   }
 
   service { 'sonarqube':
