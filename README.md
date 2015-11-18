@@ -59,7 +59,7 @@ The `sonarqube::plugin` defined type can also be used to install SonarQube plugi
       groupid    => 'org.codehaus.sonar-plugins',
       artifactid => 'sonar-twitter-plugin',
       version    => '0.1',
-      notify     => Service['sonar'],
+      notify     => Service['sonarqube'],
     }
     
 
