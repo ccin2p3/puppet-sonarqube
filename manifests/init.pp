@@ -52,7 +52,7 @@ class sonarqube (
   $search_host      = '127.0.0.1',
   $search_port      = '9001',
   $config           = undef,
-  $use_hiera        = false,
+  $plugins          = {},
 ) inherits sonarqube::params {
   validate_absolute_path($download_dir)
   Exec {
@@ -215,9 +215,7 @@ class sonarqube (
     version    => '1.0',
   }
 
-  if $use_hiera {
-    create_resources('sonarqube::plugin', hiera_hash('sonarqube::plugin', {}))
-  }
+  create_resources('sonarqube::plugin', $plugins)
 
   service { 'sonarqube':
     ensure     => running,
