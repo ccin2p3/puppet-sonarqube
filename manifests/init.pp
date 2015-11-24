@@ -25,6 +25,7 @@ class sonarqube (
   # For version greater or equals to 5.2, $download_url must be set to 'https://sonarsource.bintray.com/Distribution/sonarqube'
   $download_url     = 'http://downloads.sonarsource.com/sonarqube',
   $download_dir     = '/usr/local/src',
+  $source_hash      = undef,
   $context_path     = '/',
   $arch             = $sonarqube::params::arch,
   $https            = {},
@@ -105,6 +106,7 @@ class sonarqube (
   wget::fetch {
     'download-sonar':
       source      => "${download_url}/${package_name}-${version}.zip",
+      source_hash => $source_hash,
       destination => $tmpzip,
   } ->
 
